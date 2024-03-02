@@ -1,0 +1,25 @@
+{
+  "name": "video-downloader",
+  "version": "1.0.0",
+  "description": "Chrome extension to download videos",
+  "main": "background.js",
+  "scripts": {
+    "build": "webpack --config webpack/webpack.config.js && node tools/replace-url.js"
+  },
+  "keywords": [],
+  "author": "KingMario",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.262",
+    "@types/lodash": "^4.14.202",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
