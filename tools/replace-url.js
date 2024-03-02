@@ -8,6 +8,6 @@ const fs = require("fs");
       filePath,
       fs
         .readFileSync(filePath, "utf-8")
-        .replace(/URL_IDENTIFICATION_STRING/g, "example.com/path")
+        .replace(/URL_IDENTIFICATION_STRING/g, "linkedin.com/learning")
     );
   });
