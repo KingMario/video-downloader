@@ -1,8 +1,8 @@
-import find from "lodash/find";
-import findIndex from "lodash/findIndex";
-import type { DownloadItem, VideoInfo } from "./interfaces";
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
+import type { DownloadItem, VideoInfo } from './interfaces';
 
-const menuItemId = "download_video";
+const menuItemId = 'download_video';
 const tabVideoInfo: Record<number, VideoInfo> = {};
 const downloadList: DownloadItem[] = [];
 
@@ -10,10 +10,10 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.action.disable();
 
   chrome.contextMenus.create({
-    contexts: ["action", "link", "page"],
-    documentUrlPatterns: ["https://*.URL_IDENTIFICATION_STRING/*"],
+    contexts: ['action', 'link', 'page'],
+    documentUrlPatterns: ['https://*.URL_IDENTIFICATION_STRING/*'],
     id: menuItemId,
-    title: "Download Video",
+    title: 'Download Video',
     enabled: false,
   });
 });
@@ -75,7 +75,7 @@ const downloadVideo = (tabId: number | undefined) => {
     chrome.downloads.download(
       {
         url: videoUrl,
-        conflictAction: "overwrite",
+        conflictAction: 'overwrite',
         filename: `${title}/${sectionName}/${videoIndex} ${videoName}.mp4`,
       },
       (id) => {
@@ -84,13 +84,13 @@ const downloadVideo = (tabId: number | undefined) => {
           tabId,
           text: `${downloadList.length}`,
         });
-      }
+      },
     );
   }
 };
 
 chrome.downloads.onChanged.addListener(({ id: downloadId, state }) => {
-  if (!["complete", "interrupted"].includes(state?.current || "")) {
+  if (!['complete', 'interrupted'].includes(state?.current || '')) {
     return;
   }
 
@@ -105,7 +105,7 @@ chrome.downloads.onChanged.addListener(({ id: downloadId, state }) => {
 
     downloadList.splice(downloadIdx, 1);
 
-    const text = downloadList.length ? `${downloadList.length}` : "";
+    const text = downloadList.length ? `${downloadList.length}` : '';
     chrome.action.setBadgeText({
       tabId,
       text,
@@ -117,5 +117,5 @@ chrome.contextMenus.onClicked.addListener((_, tab) => {
   downloadVideo(tab?.id);
 });
 
-chrome.action.setBadgeBackgroundColor({ color: "#faa732" });
+chrome.action.setBadgeBackgroundColor({ color: '#faa732' });
 chrome.action.onClicked.addListener(({ id }) => downloadVideo(id));

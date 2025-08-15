@@ -1,35 +1,35 @@
-import type { VideoInfo } from "./interfaces";
+import type { VideoInfo } from './interfaces';
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   let message: VideoInfo | null = null;
 
   const processName = (str?: string) =>
     str
       ? str
-          .replace(/[:/\\]/g, " - ")
-          .replace(/[?"]/g, "")
-          .replace(/\s+/g, " ")
+          .replace(/[:/\\]/g, ' - ')
+          .replace(/[?"]/g, '')
+          .replace(/\s+/g, ' ')
       : undefined;
 
   const getNameBySelector = (selector: string) =>
     processName((document.querySelector(selector) as HTMLElement)?.innerText);
 
   const observer = new MutationObserver(function () {
-    const title = getNameBySelector(".classroom-nav__details h1");
+    const title = getNameBySelector('.classroom-nav__details h1');
     const sectionName = getNameBySelector(
-      "section.classroom-toc-section:has(.classroom-toc-item--selected) h2 button"
+      'section.classroom-toc-section:has(.classroom-toc-item--selected) h2 button',
     );
 
     const tocItemSelected = document.querySelector(
-      ".classroom-toc-item--selected"
+      '.classroom-toc-item--selected',
     );
     const videoIndex =
       tocItemSelected &&
       Array.from(tocItemSelected?.parentElement!.children).indexOf(
-        tocItemSelected
+        tocItemSelected,
       ) + 1;
-    const videoName = getNameBySelector(".classroom-nav__details h2");
-    const videoUrl = document.querySelector("video")?.getAttribute("src");
+    const videoName = getNameBySelector('.classroom-nav__details h2');
+    const videoUrl = document.querySelector('video')?.getAttribute('src');
 
     let newMessage: VideoInfo | null = null;
     if (title && sectionName && videoIndex && videoName && videoUrl) {
